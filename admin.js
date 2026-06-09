@@ -465,3 +465,15 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+
+        localStorage.removeItem("its_admin_session");
+        localStorage.removeItem("its_admin_login_time");
+
+        window.location.href = "login.html";
+
+    });
+}
