@@ -4,7 +4,21 @@
  * ============================================
  * Gère l'espace d'administration : CRUD alumni, stages, prévisualisation, données
  */
+// ============================================
+// PROTECTION ADMIN
+// ============================================
 
+(function() {
+    const session = localStorage.getItem("its_admin_session");
+    const loginTime = parseInt(localStorage.getItem("its_admin_login_time") || "0");
+    const SESSION_DURATION = 2 * 60 * 60 * 1000;
+
+    if (session !== "active" || Date.now() - loginTime > SESSION_DURATION) {
+        localStorage.removeItem("its_admin_session");
+        localStorage.removeItem("its_admin_login_time");
+        window.location.replace("login.html");
+    }
+})();
 // Données actuelles
 let adminData = loadData();
 let adminAlumni = adminData.alumni;
