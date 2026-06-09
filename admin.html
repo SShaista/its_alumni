@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - ITS Alumni & Stages</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">ITS</span>
+            <span class="brand-text">Alumni & Stages</span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Retour au site</a></li>
+        </ul>
+    </nav>
+
+    <!-- Section Admin -->
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Espace Administration</h1>
+                <p class="admin-warning">
+                    <span class="warning-icon">⚠️</span>
+                    <strong>Important :</strong> Les modifications effectuées ici sont stockées uniquement dans le 
+                    <code>localStorage</code> de votre navigateur. Elles ne sont pas partagées avec les autres utilisateurs 
+                    et seront perdues si vous videz vos données de navigation.
+                    Pour une modification permanente, éditez le fichier <code>data.js</code> directement.
+                </p>
+            </div>
+
+            <!-- Onglets Admin -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="alumni">👤 Alumni</button>
+                <button class="admin-tab" data-tab="stages">📝 Retours de stage</button>
+                <button class="admin-tab" data-tab="preview">👁️ Prévisualisation</button>
+                <button class="admin-tab" data-tab="data">💾 Données</button>
+            </div>
+
+            <!-- Onglet Alumni -->
+            <div class="admin-panel active" id="panel-alumni">
+                <h2>Gestion des Alumni</h2>
+
+                <!-- Formulaire d'ajout/modification -->
+                <div class="admin-form-wrapper">
+                    <h3 id="alumniFormTitle">Ajouter un alumni</h3>
+                    <form id="alumniForm" class="admin-form">
+                        <input type="hidden" id="alumniId">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adminNom">Nom complet *</label>
+                                <input type="text" id="adminNom" required placeholder="Jean Dupont">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminPromotion">Promotion *</label>
+                                <input type="text" id="adminPromotion" required placeholder="2023">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adminEntreprise">Entreprise actuelle *</label>
+                                <input type="text" id="adminEntreprise" required placeholder="Entreprise SA">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminPoste">Poste *</label>
+                                <input type="text" id="adminPoste" required placeholder="Développeur Web">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adminSecteur">Secteur d'activité *</label>
+                                <input type="text" id="adminSecteur" required placeholder="Informatique">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminLinkedin">Lien LinkedIn</label>
+                                <input type="url" id="adminLinkedin" placeholder="https://linkedin.com/in/...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEmail">Email de contact</label>
+                            <input type="email" id="adminEmail" placeholder="jean.dupont@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminBio">Bio / Présentation</label>
+                            <textarea id="adminBio" rows="3" placeholder="Courte présentation..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="alumniSubmitBtn">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" id="alumniCancelBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Liste des alumni -->
+                <div class="admin-list">
+                    <h3>Liste des alumni</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table" id="alumniTable">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Promotion</th>
+                                    <th>Entreprise</th>
+                                    <th>Poste</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rempli par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Stages -->
+            <div class="admin-panel" id="panel-stages">
+                <h2>Gestion des Retours de Stage</h2>
+
+                <div class="admin-form-wrapper">
+                    <h3 id="stageFormTitle">Ajouter un retour de stage</h3>
+                    <form id="stageForm" class="admin-form">
+                        <input type="hidden" id="stageId">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stageEtudiant">Nom de l'étudiant *</label>
+                                <input type="text" id="stageEtudiant" required placeholder="Jean Dupont">
+                            </div>
+                            <div class="form-group">
+                                <label for="stagePromotion">Promotion *</label>
+                                <input type="text" id="stagePromotion" required placeholder="2023">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stageEntreprise">Entreprise *</label>
+                                <input type="text" id="stageEntreprise" required placeholder="Entreprise SA">
+                            </div>
+                            <div class="form-group">
+                                <label for="stageAnnee">Année du stage *</label>
+                                <input type="number" id="stageAnnee" required placeholder="2023" min="2000" max="2030">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stageDuree">Durée du stage</label>
+                                <input type="text" id="stageDuree" placeholder="3 mois (juin - août)">
+                            </div>
+                            <div class="form-group">
+                                <label for="stageSujet">Sujet / Titre du stage *</label>
+                                <input type="text" id="stageSujet" required placeholder="Développement d'une application web">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stageDescription">Description détaillée *</label>
+                            <textarea id="stageDescription" rows="5" required placeholder="Décrivez les missions, les technologies utilisées, les apprentissages..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="stageConseils">Conseils pour les futurs stagiaires</label>
+                            <textarea id="stageConseils" rows="3" placeholder="Conseils, recommandations..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="stageContact">Contact de l'entreprise (optionnel)</label>
+                            <input type="text" id="stageContact" placeholder="Email ou LinkedIn du recruteur">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="stageSubmitBtn">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" id="stageCancelBtn" style="display:none;">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-list">
+                    <h3>Liste des retours de stage</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table" id="stageTable">
+                            <thead>
+                                <tr>
+                                    <th>Étudiant</th>
+                                    <th>Entreprise</th>
+                                    <th>Sujet</th>
+                                    <th>Année</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rempli par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Prévisualisation -->
+            <div class="admin-panel" id="panel-preview">
+                <h2>Prévisualisation</h2>
+                <p class="section-desc">Aperçu de l'affichage sur le site public</p>
+
+                <h3>Alumni</h3>
+                <div class="alumni-grid" id="previewAlumniGrid">
+                    <!-- Rempli par JavaScript -->
+                </div>
+
+                <h3>Retours de stage</h3>
+                <div class="stages-list" id="previewStagesList">
+                    <!-- Rempli par JavaScript -->
+                </div>
+            </div>
+
+            <!-- Onglet Données -->
+            <div class="admin-panel" id="panel-data">
+                <h2>Gestion des Données</h2>
+
+                <div class="data-actions">
+                    <div class="data-card">
+                        <h3>Exporter les données</h3>
+                        <p>Exportez les données actuelles (y compris les modifications locales) au format JSON.</p>
+                        <button class="btn btn-primary" id="exportDataBtn">📥 Exporter en JSON</button>
+                    </div>
+
+                    <div class="data-card">
+                        <h3>Réinitialiser</h3>
+                        <p>Supprime toutes les modifications locales et revient aux données par défaut.</p>
+                        <button class="btn btn-danger" id="resetDataBtn">🗑️ Réinitialiser les données</button>
+                    </div>
+
+                    <div class="data-card">
+                        <h3>Vider le localStorage</h3>
+                        <p>Supprime toutes les données stockées dans le navigateur.</p>
+                        <button class="btn btn-danger" id="clearStorageBtn">🧹 Vider le stockage local</button>
+                    </div>
+                </div>
+
+                <div class="data-info">
+                    <h3>Instructions pour modifier les données de manière permanente</h3>
+                    <div class="instructions">
+                        <p>Pour que les modifications soient visibles par tous les visiteurs du site :</p>
+                        <ol>
+                            <li>Exportez les données au format JSON via le bouton ci-dessus</li>
+                            <li>Ouvrez le fichier <code>data.js</code> dans un éditeur de texte</li>
+                            <li>Remplacez le contenu des tableaux <code>alumniData</code> et <code>stagesData</code></li>
+                            <li>Enregistrez le fichier et poussez les modifications sur GitHub</li>
+                        </ol>
+                        <p class="note">Le site étant hébergé sur GitHub Pages (statique), il n'y a pas de base de données côté serveur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo">ITS</span>
+                <span>Alumni & Stages</span>
+            </div>
+            <p class="footer-text">Espace administration - ITS Alumni & Stages</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
